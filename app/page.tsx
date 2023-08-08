@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 export default function Home() {
   
-  const router = useRouter
+  const router = useRouter()
   
   const [location, setLocation] = useState('')
   
@@ -45,7 +45,7 @@ export default function Home() {
                   value={location}
                   onChange={(e)=>setLocation(e.target.value)}
                 />
-                <button className='rounded bg-red-600 px-9 py-2 text-white'>
+                <button className='rounded bg-red-600 px-9 py-2 text-white'onClick={()=>router.push('/search')}>
                   Let's go
                 </button>
               </div>
