@@ -8,7 +8,6 @@ export default function Page() {
       <main className='max-w-screen-2xl m-auto bg-white'>
         {/* NAVBAR */}
         <NavBar />
-
         <div className='border-t h-screen'>
           <div className='py-9 w-3/5 m-auto'>
             {/* HEADER */}
