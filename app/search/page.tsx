@@ -1,15 +1,11 @@
 import React from "react";
-import NavBar from "./../components/NavBar";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import RestaurantCard from "./components/RestaurantCard";
 
 export default function Page() {
   return (
-    <main className='bg-gray-100 min-h-screen w-screen'>
-      <main className='max-w-screen-2xl m-auto bg-white'>
-        {/* NAVBAR */}
-        <NavBar />
+   <>
         {/* HEADER */}
         <Header />
         <div className='flex py-4 m-auto w-2/3 justify-between items-start'>
@@ -21,7 +17,6 @@ export default function Page() {
             <RestaurantCard />
           </div>
         </div>
-      </main>
-    </main>
+      </>
   );
 }

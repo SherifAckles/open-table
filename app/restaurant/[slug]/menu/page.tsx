@@ -1,16 +1,11 @@
-import React from "react";
 
-import NavBar from "./../../../components/NavBar";
 import Header from "./../components/Header";
 import RestaurantNavbar from "./../components/RestaurantNavbar";
 import MenuComponent from "./../components/MenuComponent";
 
 export default function Menu() {
   return (
-    <main className='bg-gray-100 min-h-screen w-screen'>
-      <main className='max-w-screen-2xl m-auto bg-white'>
-        {/* NAVBAR */}
-        <NavBar />
+    <>
         {/* HEADER */}
         <Header />
         {/* DESCRIPTION PORTION */}
@@ -22,8 +17,7 @@ export default function Menu() {
             <MenuComponent />
           </div>
         </div>
-        {/* DESCRIPTION PORTION */}
-      </main>
-    </main>
+        
+      </>
   );
 }
