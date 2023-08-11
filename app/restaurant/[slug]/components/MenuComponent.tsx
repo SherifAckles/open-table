@@ -1,6 +1,9 @@
 
 import MenuCard from './MenuCard';
 
+export const metadata = {
+  title: "restaurants|Menu",
+};
 export default function MenuComponent() {
   return (
     <main className='bg-white mt-5'>

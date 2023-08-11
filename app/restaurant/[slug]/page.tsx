@@ -1,4 +1,3 @@
-
 import RestaurantNavbar from "./components/RestaurantNavbar";
 import Rating from "./components/Rating";
 import Title from "./components/Title";
@@ -7,9 +6,17 @@ import Images from "./components/Images";
 import Reviews from "./components/Reviews";
 import ReservationCard from "./components/ReservationCard";
 
+
+
+export const metadata = {
+  title:'restaurants'
+}
+
 export default function Page() {
   return (
     <>
+  
+
       <div className='bg-white w-[70%] rounded p-3 shadow'>
         {/* RESTAURANT NAVBAR */}
         <RestaurantNavbar />
