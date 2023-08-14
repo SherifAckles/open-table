@@ -19,7 +19,7 @@ export default function RestaurantCard() {
           <div className='font-light flex text-reg'>
             <p className='mr-4'>$$$</p>
             <p className='mr-4'>Mexican</p>
-            <p className='mr-4'>Ottawa</p>
+            <p className='mr-4'>ottawa </p>
           </div>
         </div>
         <div className='text-red-600'>
