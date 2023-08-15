@@ -7,6 +7,10 @@ import Reviews from "./components/Reviews";
 import ReservationCard from "./components/ReservationCard";
 import { PrismaClient } from "@prisma/client";
 
+export const metadata = {
+  title: "Restaurants",
+};
+
 const prisma = new PrismaClient()
 //fetchRestaurantBySlug will always return a restaurant,if not exist then
 // we do something else
@@ -36,9 +40,7 @@ const fetchRestaurantBySlug = async (slug:string): Promise<Restaurant> => {
   }
   return restaurant;
 }
-export const metadata = {
-  title:'restaurants'
-}
+
 
 export default async function RestaurantDetails({params}: {params:{slug:string}}) {
 

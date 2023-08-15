@@ -1,4 +1,3 @@
-
 export const metadata = {
   title: "OpenTable|Search Restaurants",
 };
@@ -34,7 +33,13 @@ const fetchRestaurantByCity = (city: string | undefined) => {
   });
 };
 
+const fetchLocations = async () => {
+  return prisma.location.findMany();
+};
 
+const fetchCuisines = async () => {
+  return prisma.cuisine.findMany();
+};
 
 export default async function SearchPage({
   searchParams,
@@ -42,6 +47,8 @@ export default async function SearchPage({
   searchParams: { city: string };
 }) {
   const restaurants = await fetchRestaurantByCity(searchParams.city);
+  const location = await fetchLocations();
+  const cuisine = await fetchCuisines();
 
   return (
     <>
@@ -49,11 +56,15 @@ export default async function SearchPage({
       <Header />
       <div className='flex py-4 m-auto w-2/3 justify-between items-start'>
         {/* SEARCH SIDE BAR */}
-        <Sidebar />
+        <Sidebar locations={location} cuisines={cuisine} />
         {/* RESTAURANT LIST */}
         <div className='w-5/6'>
           {restaurants.length ? (
-            <RestaurantCard />
+            <>
+              {restaurants.map((restaurant) => (
+                <RestaurantCard restaurant={restaurant} key={restaurant.id} />
+              ))}
+            </>
           ) : (
             <p>No restaurants found in this area</p>
           )}
