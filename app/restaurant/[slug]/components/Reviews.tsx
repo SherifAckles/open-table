@@ -8,7 +8,7 @@ export default function Reviews({ reviews }: { reviews: Review[] }) {
         {reviews.length === 0
           ? "No Reviews Yet"
           : `What ${reviews.length} ${
-              reviews.length === 1 ? "person is" : "people are "
+              reviews.length === 1 ? "person is " : "people are "
             } saying`}
       </h1>
       <div>
