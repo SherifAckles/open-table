@@ -3,12 +3,13 @@ export const metadata: Metadata = {
   title: "OpenTable | Home page",
 };
 import type { Metadata } from "next";
-import { PrismaClient,Cuisine,Location,PRICE } from "@prisma/client";
+import { PrismaClient,Cuisine,Location,PRICE, Review } from "@prisma/client";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
+import Reviews from './restaurant/[slug]/components/Reviews';
 
 
-export interface RestaurantCardType{
+export interface RestaurantCardType {
   id: number;
   name: string;
   main_image: string;
@@ -16,7 +17,7 @@ export interface RestaurantCardType{
   location: Location;
   price: PRICE;
   slug: string;
-  
+  reviews: Review[];
 }
 
 const prisma= new PrismaClient()
@@ -30,22 +31,23 @@ const fetchRestaurants = async (): Promise <RestaurantCardType[]> => {
       cuisine: true,
       slug: true,
       location: true,
-    price:true
+      price: true,
+    reviews:true
     }
   })
   return restaurants
 }
 
 export default async function HomePage() {
-  const restaurants=await fetchRestaurants()
-  console.log({restaurants})
+  const restaurants = await fetchRestaurants();
+
   return (
     <>
       <main>
         <Header />
         <div className='py-3 px-36 mt-10 flex flex-wrap justify-center'>
           {restaurants.map((restaurant) => (
-            <RestaurantCard  restaurant={restaurant}/>
+            <RestaurantCard restaurant={restaurant} reviews={reviews} />
           ))}
         </div>
       </main>
