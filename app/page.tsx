@@ -47,7 +47,7 @@ export default async function HomePage() {
         <Header />
         <div className='py-3 px-36 mt-10 flex flex-wrap justify-center'>
           {restaurants.map((restaurant) => (
-            <RestaurantCard restaurant={restaurant} reviews={reviews} />
+            <RestaurantCard restaurant={restaurant}/>
           ))}
         </div>
       </main>

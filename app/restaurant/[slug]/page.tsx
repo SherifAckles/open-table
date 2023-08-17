@@ -50,21 +50,19 @@ export default async function RestaurantDetails({params}: {params:{slug:string}}
   console.log(restaurant)
   return (
     <>
-  
-
       <div className='bg-white w-[70%] rounded p-3 shadow'>
         {/* RESTAURANT NAVBAR */}
-        <RestaurantNavbar slug={restaurant.slug}/>
+        <RestaurantNavbar slug={restaurant.slug} />
         {/* TITLE */}
         <Title name={restaurant.name} />
         {/* RATING */}
-        <Rating />
+        <Rating reviews={restaurant.reviews} />
         {/* DESCRIPTION */}
-        <Description description={restaurant.description } />
+        <Description description={restaurant.description} />
         {/* IMAGES */}
-        <Images images={restaurant.images}/>
+        <Images images={restaurant.images} />
         {/* REVIEWS */}
-        <Reviews reviews={restaurant.reviews } />
+        <Reviews reviews={restaurant.reviews} />
       </div>
       <div className='w-[27%] relative text-reg'>
         {/* RESERVATION CARD PORTION */}
