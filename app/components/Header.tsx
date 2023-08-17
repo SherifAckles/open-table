@@ -1,7 +1,6 @@
 import SearchBar from "./SearchBar";
 
-const backgroundImageUrl =
-  "https://opentable.github.io/design-tokens/static/handoverBanner-4bc0b987ea5b879a3095152bb0bd555f.png";
+const backgroundImageUrl = "/images/restaurant2-img.jpg";
 
 export default function Header() {
   return (
