@@ -5,13 +5,19 @@ import Image from "next/image";
 import { calcRevRatingAvg } from "@/utils/calcRevRatingAvg";
 import { Review } from "@prisma/client";
 
-export default function Stars({ reviews }: { reviews: Review[] }) {
-  const rating = calcRevRatingAvg(reviews);
+export default function Stars({
+  reviews,
+  rating,
+}: {
+  reviews: Review[];
+  rating?: number;
+}) {
+  const reviewRating = rating || calcRevRatingAvg(reviews);
 
   const renderStars = () => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      const difference = parseFloat((rating - i).toFixed(1));
+      const difference = parseFloat((reviewRating - i).toFixed(1));
 
       if (difference >= 1) stars.push(fullStar);
       else if (difference < 1 && difference > 0) {
