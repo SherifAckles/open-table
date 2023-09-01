@@ -17,15 +17,27 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-export default function SigningModal() {
+// if sign in then it displays sign in else displays sign up
+export default function SigningModal({ isSignin }: { isSignin: boolean }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const renderContent = (signinContent: string, signupContent: string) => {
+    return isSignin ? signinContent : signupContent;
+  };
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <button
+        className={`${renderContent(
+          "bg-blue-400 text-white",
+          ""
+        )} border p-1 px-4 rounded mr-3`}
+        onClick={handleOpen}>
+        {renderContent("Sign in", "SIgn up")}
+      </button>
+
       <Modal
         open={open}
         onClose={handleClose}
