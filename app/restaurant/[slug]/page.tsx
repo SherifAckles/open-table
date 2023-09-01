@@ -6,6 +6,7 @@ import Images from "./components/Images";
 import Reviews from "./components/Reviews";
 import ReservationCard from "./components/ReservationCard";
 import { PrismaClient, Review } from "@prisma/client";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "Restaurants",
@@ -37,8 +38,9 @@ const fetchRestaurantBySlug = async (slug:string): Promise<Restaurant> => {
       reviews:true
     }
   })
+  // IF THERE IS NO RESTAURANT DISPLAY THE NOTFOUND PAGE 404
   if (!restaurant) {
-    throw new Error("Restaurant not found");
+   notFound()
   }
   return restaurant;
 }
@@ -47,7 +49,7 @@ const fetchRestaurantBySlug = async (slug:string): Promise<Restaurant> => {
 export default async function RestaurantDetails({params}: {params:{slug:string}}) {
 
   const restaurant = await fetchRestaurantBySlug(params.slug)
-  console.log(restaurant)
+  // console.log(restaurant)
   return (
     <>
       <div className='bg-white w-[70%] rounded p-3 shadow'>
