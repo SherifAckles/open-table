@@ -21,11 +21,26 @@ const style = {
 // if sign in then it displays sign in else displays sign up
 export default function SigningModal({ isSignin }: { isSignin: boolean }) {
   const [open, setOpen] = useState(false);
+  const [input, setInput] = useState({
+    firstName:'',
+    lastName: '',
+    email:'',
+    phone:'',
+    password:'',
+    city:'',
+  });
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const renderContent = (signinContent: string, signupContent: string) => {
     return isSignin ? signinContent : signupContent;
+  };
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({
+      ...input,[e.target.name]:e.target.value
+    })
   };
 
   return (
@@ -49,6 +64,7 @@ export default function SigningModal({ isSignin }: { isSignin: boolean }) {
             <div className='uppercase font-bold text-center pb-2 border-b mb-2'>
               <p className='text-sm'>
                 {renderContent("Sign In", "Create Account")}
+                {input.email}
               </p>
             </div>
             <div className='m-auto'>
@@ -58,7 +74,11 @@ export default function SigningModal({ isSignin }: { isSignin: boolean }) {
                   "Create Your OpenTable Account"
                 )}
               </h2>
-              <SigningModalInputs />
+              <SigningModalInputs
+                input={input}
+                handleChangeInput={handleChangeInput}
+                isSignin={isSignin}
+              />
               <button
                 className='uppercase bg-red-600 text-white
                p-3 rounded text-sm mb-5 disabled:bg-gray-400 w-full'>
