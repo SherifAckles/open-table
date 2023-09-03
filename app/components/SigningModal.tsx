@@ -51,7 +51,7 @@ export default function SigningModal({ isSignin }: { isSignin: boolean }) {
           ""
         )} border p-1 px-4 rounded mr-3`}
         onClick={handleOpen}>
-        {renderContent("Sign in", "SIgn up")}
+        {renderContent("Sign in", "Sign up")}
       </button>
 
       <Modal
