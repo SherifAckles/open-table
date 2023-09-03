@@ -47,16 +47,20 @@ export default async function handler(
     },
   ];
 
+  // Iterate through each validation rule in the validationSchema
   validationSchema.forEach((check) => {
+    // Check if the validation rule's result is not valid (e.g., if the input didn't pass validation)
     if (!check.valid) {
+      // If not valid, add the associated error message to the 'errors' array
       errors.push(check.errorMessage);
     }
   });
 
+  // IF THERE IS AN ERROR RETURN JUST THE FIRST ONE FOR NOW
   if (errors.length) {
     return res.status(400).json({ errorMessage: errors[0] });
   }
-
+  // if everything is valid then return the responseData
   if (req.method === "POST") {
     res.status(200).json(responseData);
   }
