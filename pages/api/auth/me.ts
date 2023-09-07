@@ -27,7 +27,9 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     try {
        await jose.jwtVerify(token,secret) 
     } catch (error) {
-        
+        return res.status(401).json({
+        errorMessage: "Unauthorized request",
+      })
     }
     return res.json({ me: 'sherif' })
 }
