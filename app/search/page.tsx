@@ -1,6 +1,12 @@
-export const metadata = {
-  title: "OpenTable|Search Restaurants",
-};
+
+
+export async function generateMetadata() {
+  return {
+    title: "OpenTable|Search Restaurants",
+    
+  };
+}
+
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
