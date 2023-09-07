@@ -10,7 +10,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     //if the header in there(the key header)
     if (!bearerToken) {
       return res.status(401).json({
-        errorMessage: "Unauthorized request",
+        errorMessage: "Unauthorized request (no bearer token) ",
       });
     }
     //split the token from the bearerToken token
