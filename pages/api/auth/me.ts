@@ -18,7 +18,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
 
     if (!token) {
       return res.status(401).json({
-        errorMessage: "Unauthorized request",
+        errorMessage: "Unauthorized request (no token) ",
       });
     }
 //if we have token let's verify it
@@ -28,7 +28,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
        await jose.jwtVerify(token,secret) 
     } catch (error) {
         return res.status(401).json({
-        errorMessage: "Unauthorized request",
+        errorMessage: "Unauthorized request (token invalid) ",
       })
     }
     return res.json({ me: 'sherif' })
