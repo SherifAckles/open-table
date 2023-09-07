@@ -2,6 +2,8 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import * as jose from 'jose'
+import jwt from 'jsonwebtoken'
+
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse) {
 
