@@ -1,8 +1,9 @@
+import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
 import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
 import * as jose from "jose";
+import { setCookie } from "cookies-next";
 
 const prisma = new PrismaClient();
 
@@ -11,66 +12,71 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    // define errors if there are any
     const errors: string[] = [];
-    // Extract to validate the body
     const { email, password } = req.body;
 
-    const validationScheme = [
+    const validationSchema = [
       {
         valid: validator.isEmail(email),
-
-        //    provide the error msg
         errorMessage: "Email is invalid",
       },
       {
         valid: validator.isLength(password, {
           min: 1,
         }),
-
-        //    provide the error msg
         errorMessage: "Password is invalid",
       },
     ];
-    validationScheme.forEach((check) => {
+
+    validationSchema.forEach((check) => {
       if (!check.valid) {
         errors.push(check.errorMessage);
       }
     });
+
     if (errors.length) {
       return res.status(400).json({ errorMessage: errors[0] });
     }
-    //   grab the user and check if he has an account
-    const userWithEmail = await prisma.user.findUnique({
+
+    const user = await prisma.user.findUnique({
       where: {
         email,
       },
     });
-    //   if the user doesn't exist in the db return unauthorized http status 404
-    if (!userWithEmail) {
+
+    if (!user) {
       return res
         .status(401)
-        .json({ errorMessage: "Email or Password is invalid" });
+        .json({ errorMessage: "Email or password is invalid" });
     }
-    //   compare the pass the user gave us with the hashed pass
-    const isMatch = await bcrypt.compare(password, userWithEmail.password);
-    //if there are different
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return res
         .status(401)
-        .json({ errorMessage: "Email or Password is invalid" });
+        .json({ errorMessage: "Email or password is invalid" });
     }
 
-    //Create the JWT
     const alg = "HS256";
+
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-    const token = await new jose.SignJWT({ email: userWithEmail.email })
+
+    const token = await new jose.SignJWT({ email: user.email })
       .setProtectedHeader({ alg })
       .setExpirationTime("24h")
       .sign(secret);
+
+    setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
+
     return res.status(200).json({
-      token,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      city: user.city,
     });
   }
+
   return res.status(404).json("Unknown endpoint");
 }
