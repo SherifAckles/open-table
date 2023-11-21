@@ -119,7 +119,7 @@ export default function ReservationCard({
       {data && data.length ? (
         <div className="mt-4">
           <p className="text-reg">Select a Time</p>
-          <div className="flex flex-wrap mt-2">
+          <div className="flex flex mt-2">
             {data.map((time) => {
               return time.available ? (
                 <Link
