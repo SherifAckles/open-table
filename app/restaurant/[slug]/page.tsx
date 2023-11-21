@@ -1,74 +1,73 @@
-import RestaurantNavbar from "./components/RestaurantNavbar";
-import Rating from "./components/Rating";
-import Title from "./components/Title";
-import Description from "./components/Description";
-import Images from "./components/Images";
-import Reviews from "./components/Reviews";
-import ReservationCard from "./components/ReservationCard";
 import { PrismaClient, Review } from "@prisma/client";
 import { notFound } from "next/navigation";
+import Description from "./components/Description";
+import Images from "./components/Images";
+import Rating from "./components/Rating";
+import ReservationCard from "./components/ReservationCard";
+import RestaurantNavBar from "./components/RestaurantNavBar";
+import Reviews from "./components/Reviews";
+import Title from "./components/Title";
 
-export const metadata = {
-  title: "Restaurants",
-};
+const prisma = new PrismaClient();
 
-const prisma = new PrismaClient()
-//fetchRestaurantBySlug will always return a restaurant,if not exist then
-// we do something else
-interface Restaurant{
-    id: number;
-    name: string;
-    images : string[];
-    description: string;
+interface Restaurant {
+  id: number;
+  name: string;
+  images: string[];
+  description: string;
+  open_time: string;
+  close_time: string;
   slug: string;
-  reviews:Review[]
+  reviews: Review[];
 }
-//fetchRestaurantBySlug will always return a promise  resolves to a Restaurant
-const fetchRestaurantBySlug = async (slug:string): Promise<Restaurant> => {
+
+const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
   const restaurant = await prisma.restaurant.findUnique({
     where: {
       slug,
     },
-    select:{
+    select: {
       id: true,
       name: true,
       images: true,
       description: true,
       slug: true,
-      reviews:true
-    }
-  })
-  // IF THERE IS NO RESTAURANT DISPLAY THE NOTFOUND PAGE 404
+      reviews: true,
+      open_time: true,
+      close_time: true,
+    },
+  });
+
   if (!restaurant) {
-   notFound()
+    notFound();
   }
+
   return restaurant;
-}
+};
 
+export default async function RestaurantDetails({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const restaurant = await fetchRestaurantBySlug(params.slug);
 
-export default async function RestaurantDetails({params}: {params:{slug:string}}) {
-
-  const restaurant = await fetchRestaurantBySlug(params.slug)
-  // console.log(restaurant)
   return (
     <>
-      <div className='bg-white w-[70%] rounded p-3 shadow'>
-        {/* RESTAURANT NAVBAR */}
-        <RestaurantNavbar slug={restaurant.slug} />
-        {/* TITLE */}
+      <div className="bg-white w-[70%] rounded p-3 shadow">
+        <RestaurantNavBar slug={restaurant.slug} />
         <Title name={restaurant.name} />
-        {/* RATING */}
         <Rating reviews={restaurant.reviews} />
-        {/* DESCRIPTION */}
         <Description description={restaurant.description} />
-        {/* IMAGES */}
         <Images images={restaurant.images} />
-        {/* REVIEWS */}
         <Reviews reviews={restaurant.reviews} />
       </div>
-      <div className='w-[27%] relative text-reg'>
-        {/* RESERVATION CARD PORTION */}
-        <ReservationCard />
+      <div className="w-[27%] relative text-reg">
+        <ReservationCard
+          openTime={restaurant.open_time}
+          closeTime={restaurant.close_time}
+          slug={restaurant.slug}
+        />
       </div>
     </>
   );

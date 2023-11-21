@@ -9,7 +9,7 @@ export default function Header({ name }: { name: string }) {
 
   const backgroundImageStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
-    backgroundSize: "cover", // Adjust these properties as needed
+    backgroundSize: "cover", 
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
