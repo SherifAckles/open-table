@@ -4,7 +4,7 @@ import Description from "./components/Description";
 import Images from "./components/Images";
 import Rating from "./components/Rating";
 import ReservationCard from "./components/ReservationCard";
-import RestaurantNavBar from "./components/RestaurantNavBar";
+import RestaurantNavBar from "./components/Restaurantnavbar";
 import Reviews from "./components/Reviews";
 import Title from "./components/Title";
 

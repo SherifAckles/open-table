@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import Menu from "../components/Menu";
-import RestaurantNavBar from "../components/RestaurantNavBar";
+import RestaurantNavBar from "../components/Restaurantnavbar";
 
 const prisma = new PrismaClient();
 
