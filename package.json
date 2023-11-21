@@ -12,6 +12,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.6",
+    "@netlify/plugin-nextjs": "^4.41.2",
     "@next/font": "13.1.4",
     "@prisma/client": "^4.8.1",
     "@types/bcrypt": "^5.0.0",
